@@ -1,0 +1,47 @@
+{
+  "name": "x86-emulator-js",
+  "version": "1.0.0",
+  "description": "Emulator for x86 (i386)",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nownabe/x86-emulator-js.git"
+  },
+  "keywords": [
+    "x86",
+    "react",
+    "redux",
+    "jspm",
+    "emulator",
+    "assembly"
+  ],
+  "author": "nownabe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nownabe/x86-emulator-js/issues"
+  },
+  "homepage": "https://github.com/nownabe/x86-emulator-js#readme",
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "jspm": "^0.16.45",
+    "live-server": "^1.1.0"
+  },
+  "jspm": {
+    "dependencies": {
+      "react": "npm:react@^15.3.1",
+      "react-dom": "npm:react-dom@^15.3.1",
+      "react-redux": "npm:react-redux@^4.4.5",
+      "redux": "npm:redux@^3.5.2"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4",
+      "redux-logger": "npm:redux-logger@^2.6.1"
+    }
+  }
+}
