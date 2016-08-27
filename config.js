@@ -16,6 +16,7 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "bulma": "npm:bulma@0.1.2",
     "core-js": "npm:core-js@1.2.7",
     "react": "npm:react@15.3.1",
     "react-dom": "npm:react-dom@15.3.1",

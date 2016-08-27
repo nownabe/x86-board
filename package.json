@@ -4,8 +4,7 @@
   "description": "Emulator for x86 (i386)",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/live-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./node_modules/.bin/live-server"
   },
   "repository": {
     "type": "git",
@@ -26,7 +25,6 @@
   },
   "homepage": "https://github.com/nownabe/x86-emulator-js#readme",
   "devDependencies": {
-    "http-server": "^0.9.0",
     "jspm": "^0.16.45",
     "live-server": "^1.1.0"
   },

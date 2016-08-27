@@ -1,5 +1,12 @@
 import React from "react"
+import Controller from "./Controller"
+import Computer from "./Computer"
 
-const Root = () => <h1>Hello, world!</h1>
+const Root = () => (
+  <div id="board" className="columns">
+    <Controller />
+    <Computer />
+  </div>
+)
 
 export default Root
