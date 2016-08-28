@@ -1,0 +1,12 @@
+#board {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+#buttons button + button {
+  margin-left: 8px;
+}
+
+td {
+  font-family: monaco;
+}

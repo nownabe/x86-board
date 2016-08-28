@@ -23,6 +23,7 @@ System.config({
     "react-redux": "npm:react-redux@4.4.5",
     "redux": "npm:redux@3.5.2",
     "redux-logger": "npm:redux-logger@2.6.1",
+    "sprintf-js": "npm:sprintf-js@1.0.3",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },

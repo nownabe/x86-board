@@ -7,6 +7,8 @@ import Root from "./components/root"
 let store = configureStore({})
 
 render(
-  <Root store={store} />,
+  <Provider store={store}>
+    <Root store={store} />
+  </Provider>,
   document.getElementById("app")
 )
