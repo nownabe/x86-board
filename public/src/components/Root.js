@@ -1,5 +1,5 @@
 import React from "react"
-import Controller from "./Controller"
+import Controller from "../containers/Controller"
 import Computer from "./Computer"
 
 const Root = () => (

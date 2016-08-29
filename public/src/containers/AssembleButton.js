@@ -1,3 +1,5 @@
+// USELESS
+
 import { connect } from "react-redux"
 import Button from "../components/Button.js"
 

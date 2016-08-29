@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { setBinary, setAssembly } from "../actions"
+import { setBinary, setAssembly, initializeEmulator } from "../actions"
 
 const Controller = ({ dispatch, assembly }) => {
   let assemblyEditor
@@ -16,7 +16,9 @@ const Controller = ({ dispatch, assembly }) => {
       return response.json()
     }).then(data => {
       console.log(data.encoded)
-      dispatch(setBinary(atob(data.encoded)))
+      let binary = atob(data.encoded)
+      dispatch(setBinary(binary))
+      dispatch(initializeEmulator(binary))
     })
   }
 
