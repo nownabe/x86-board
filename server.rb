@@ -9,15 +9,20 @@ require "sinatra/base"
 FailedToAssemble = Class.new(StandardError)
 
 class Server < Sinatra::Base
+  configure do
+    set :static_cache_control, [:public, max_age: 0]
+  end
+
   after do
     cache_control :no_cache
   end
 
   get "/" do
-    html "index.html"
+    File.read(File.expand_path("../public/index.html", __FILE__))
   end
 
   post "/assemble" do
+    headers "Cache-Control" => "max-age=0"
     begin
       code = JSON.parse(request.body.read)["code"]
       encoded = assemble(code)

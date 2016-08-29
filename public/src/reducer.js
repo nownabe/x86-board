@@ -1,10 +1,12 @@
 import { combineReducers } from "redux"
-import computer from "./reducers/computer"
 import assembly from "./reducers/assembly"
+import binary from "./reducers/binary"
+import computer from "./reducers/computer"
 
 const reducer = combineReducers({
-  computer,
-  assembly
+  assembly,
+  binary,
+  computer
 })
 
 export default reducer
