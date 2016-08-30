@@ -1,8 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
+import StepButton from "./StepButton"
 import { setBinary, setAssembly, initializeEmulator } from "../actions"
 
-const Controller = ({ dispatch, assembly }) => {
+const Controller = ({ dispatch, assembly, isRunning }) => {
   let assemblyEditor
   let assembleOnClick = (e) => {
     dispatch(setAssembly(assemblyEditor.value))
@@ -25,8 +26,8 @@ const Controller = ({ dispatch, assembly }) => {
   return (
     <div id="controller" className="column">
       <div id="buttons">
-        <button className="button is-primary" onClick={assembleOnClick}>Assemble</button>
-        <button className="button is-success">Step</button>
+        <button className="button is-primary" onClick={assembleOnClick} disabled={isRunning}>Assemble</button>
+        <StepButton />
         <button className="button is-success">Run</button>
         <button className="button is-warning">Reset</button>
       </div>
@@ -36,16 +37,17 @@ const Controller = ({ dispatch, assembly }) => {
           className="textarea"
           defaultValue={assembly}
           ref={node => {assemblyEditor = node}}
+          disabled={isRunning}
         />
       </div>
       <div id="io">
         <div id="input">
           <h2>Input</h2>
-          <textarea className="textarea"></textarea>
+          <textarea className="textarea" disabled={isRunning}></textarea>
         </div>
         <div id="output">
           <h2>Output</h2>
-          <textarea className="textarea"></textarea>
+          <textarea className="textarea" disabled={isRunning}></textarea>
         </div>
       </div>
     </div>
@@ -54,7 +56,8 @@ const Controller = ({ dispatch, assembly }) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    assembly: state.assembly
+    assembly: state.assembly,
+    isRunning: state.isRunning
   }
 }
 

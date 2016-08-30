@@ -1,6 +1,4 @@
-let initialState = null
-
-const binary = (state = initialState, action) => {
+const binary = (state = null, action) => {
   if (action.type == "SET_BINARY") {
     return action.binary
   } else {
