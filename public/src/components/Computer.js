@@ -1,4 +1,5 @@
 import React from "react"
+import Memory from "../containers/Memory"
 import Registers from "../containers/Registers"
 
 const Computer = () => (
@@ -10,6 +11,7 @@ const Computer = () => (
       </div>
       <div id="memory">
         <h2>Memory</h2>
+        <Memory />
       </div>
     </div>
   </div>

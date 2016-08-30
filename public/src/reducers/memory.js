@@ -1,6 +1,4 @@
-import { MEMORY_SIZE } from "../constants"
-
-const ADDRESS = 0x7c00
+import { MEMORY_SIZE, ADDRESS_OFFSET } from "../constants"
 
 const memory = (state = new Uint8Array(MEMORY_SIZE), action) => {
   switch (action.type) {
@@ -8,8 +6,7 @@ const memory = (state = new Uint8Array(MEMORY_SIZE), action) => {
     let state = new Uint8Array(MEMORY_SIZE)
     let i = 0
     for (let i = 0; i < action.binary.length; i++) {
-      state[ADDRESS + i] = action.binary[i]
-      console.log(state[ADDRESS + i])
+      state[ADDRESS_OFFSET + i] = action.binary.charCodeAt(i)
     }
     return state
 

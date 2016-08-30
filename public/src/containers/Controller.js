@@ -6,7 +6,7 @@ const Controller = ({ dispatch, assembly }) => {
   let assemblyEditor
   let assembleOnClick = (e) => {
     dispatch(setAssembly(assemblyEditor.value))
-    console.log("POST /assembly")
+    console.log("POST /assemble")
     fetch("/assemble", {
       method: "POST",
       body: JSON.stringify({ code: assemblyEditor.value })

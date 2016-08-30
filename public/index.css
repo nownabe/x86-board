@@ -1,5 +1,5 @@
 #board {
-  max-width: 1024px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -9,4 +9,27 @@
 
 td {
   font-family: monaco;
+}
+
+#memoryTable th {
+  font-family: monaco;
+}
+
+#memoryTable > thead {
+  display: block;
+}
+
+#memoryTable > tbody {
+  display: block;
+  height: 32rem;
+  overflow-y: scroll;
+}
+
+#memoryTable .address {
+  width: 8rem;
+}
+
+#memoryTable .pointed {
+  color: #f00;
+  font-weight: bold;
 }
