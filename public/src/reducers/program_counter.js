@@ -1,4 +1,4 @@
-const program_counter = (state = 0, action) => {
+const program_counter = (state = 0x0100, action) => {
   return state
 }
 
