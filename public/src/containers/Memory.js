@@ -4,12 +4,13 @@ import { sprintf } from "sprintf-js"
 
 const mapStateToProps = (state) => {
   return {
-    memory: state.memory,
-    program_counter: state.program_counter
+    emulator: state.emulator
   }
 }
 
-const Memory = ({ memory, program_counter }) => {
+const Memory = ({ emulator }) => {
+  let program_counter = emulator.program_counter
+  let memory = emulator.memory
   let memoryRows = new Array(Math.ceil(memory.length / 16.0))
 
   for (let i = 0; i < memory.length; i += 16) {

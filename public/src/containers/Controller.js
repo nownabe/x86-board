@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 import StepButton from "./StepButton"
-import { setBinary, setAssembly, initializeEmulator } from "../actions"
+import { setBinary, setAssembly } from "../actions"
 
-const Controller = ({ dispatch, assembly, isRunning }) => {
+const Controller = ({ dispatch, assembly, isRunning, emulator }) => {
   let assemblyEditor
   let assembleOnClick = (e) => {
     dispatch(setAssembly(assemblyEditor.value))
@@ -18,8 +18,7 @@ const Controller = ({ dispatch, assembly, isRunning }) => {
     }).then(data => {
       console.log(data.encoded)
       let binary = atob(data.encoded)
-      dispatch(setBinary(binary))
-      dispatch(initializeEmulator(binary))
+      dispatch(setBinary(binary, emulator))
     })
   }
 
@@ -57,7 +56,8 @@ const Controller = ({ dispatch, assembly, isRunning }) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     assembly: state.assembly,
-    isRunning: state.isRunning
+    isRunning: state.isRunning,
+    emulator: state.emulator
   }
 }
 

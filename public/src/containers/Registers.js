@@ -3,7 +3,7 @@ import RegisterTable from "../components/RegisterTable"
 
 const mapStateToProps = (state) => {
   return {
-    registers: state.registers
+    registers: state.emulator.registers
   }
 }
 

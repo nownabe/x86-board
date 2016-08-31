@@ -3,6 +3,10 @@ const isRunning = (state = false, action) => {
   case "STEP":
   case "RUN":
     return true
+
+  case "RESET":
+    return false
+
   default:
     return state
   }
