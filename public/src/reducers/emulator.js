@@ -5,6 +5,12 @@ const emulator = (state = new Emulator(), action) => {
   case "SET_BINARY":
     return action.emulator
 
+  case "STEP":
+    return action.emulator
+
+  case "RESET":
+    return new Emulator()
+
   default:
     return state
   }

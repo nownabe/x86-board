@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
 }
 
 const Memory = ({ emulator }) => {
-  let program_counter = emulator.program_counter
+  let programCounter = emulator.programCounter
   let memory = emulator.memory
   let memoryRows = new Array(Math.ceil(memory.length / 16.0))
 
@@ -19,7 +19,7 @@ const Memory = ({ emulator }) => {
     for (let j = 0; j < 16; j++) {
       let addr = i + j
       let klass = ""
-      if ( addr === program_counter ) {
+      if ( addr === programCounter ) {
         klass = "pointed"
       }
       row.push(<td key={i + j} className={klass}>{sprintf("%02X", memory[i + j])}</td>)

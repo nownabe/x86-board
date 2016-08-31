@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import StepButton from "./StepButton"
+import ResetButton from "./ResetButton"
 import { setBinary, setAssembly } from "../actions"
 
 const Controller = ({ dispatch, assembly, isRunning, emulator }) => {
@@ -28,7 +29,7 @@ const Controller = ({ dispatch, assembly, isRunning, emulator }) => {
         <button className="button is-primary" onClick={assembleOnClick} disabled={isRunning}>Assemble</button>
         <StepButton />
         <button className="button is-success">Run</button>
-        <button className="button is-warning">Reset</button>
+        <ResetButton />
       </div>
       <div id="editor">
         <h2>Editor</h2>
