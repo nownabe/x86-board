@@ -4,6 +4,7 @@ const isRunning = (state = false, action) => {
   case "RUN":
     return true
 
+  case "FINISH":
   case "RESET":
     return false
 

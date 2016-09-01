@@ -1,3 +1,4 @@
+import ModRM from "./ModRM"
 import { ADDRESS_OFFSET, REGISTERS, MEMORY_SIZE } from "./constants"
 
 export default class Emulator {
@@ -25,23 +26,66 @@ export default class Emulator {
     }
   }
 
-  getInt8(offset = 0) {
-    return this.dataView.getInt8(this.programCounter + offset)
+  // Register
+  getRegister8(register) {
+    if (register < 4) {
+      return (this.registers[register] & 0xFF)
+    } else {
+      return ((this.registers[register - 4] >> 8) & 0xFF)
+    }
   }
 
-  getUint8(offset = 0) {
-    return this.memory[this.programCounter + offset]
+  setRegister8(register, data) {
+    if (register < 4) {
+      this.registers[register] = (this.registers[register] & 0xffffff00) | data
+    } else {
+      this.registers[register - 4] = (this.registers[register - 4] & 0xffff00ff) | (data << 8)
+    }
   }
 
-  getInt32(offset = 0) {
-    return this.dataView.getInt32(this.programCounter + offset, true)
-  }
-
-  getUint32(offset = 0) {
-    return this.dataView.getUint32(this.programCounter + offset, true)
+  getRegister32(register) {
+    return this.registers[register]
   }
 
   setRegister32(register, data) {
     this.registers[register] = data
+  }
+
+  // Memory
+  getMemory8(address) {
+    return this.dataView.getUint8(address)
+  }
+
+  setMemory8(address, data) {
+    this.dataView.setUint8(address, data & 0xff)
+  }
+
+  setMemory32(address, data) {
+    this.dataView.setUint32(address, data, true)
+  }
+
+  // Memory pointed by program counter
+  getInt8() {
+    this.programCounter += 1
+    return this.dataView.getInt8(this.programCounter - 1)
+  }
+
+  getUint8() {
+    this.programCounter += 1
+    return this.dataView.getUint8(this.programCounter - 1)
+  }
+
+  getInt32() {
+    this.programCounter += 4
+    return this.dataView.getInt32(this.programCounter - 4, true)
+  }
+
+  getUint32(offset = 0) {
+    this.programCounter += 4
+    return this.dataView.getUint32(this.programCounter - 4, true)
+  }
+
+  getModRM() {
+    return new ModRM(this)
   }
 }

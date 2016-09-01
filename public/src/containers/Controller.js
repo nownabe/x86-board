@@ -2,9 +2,9 @@ import React from "react"
 import { connect } from "react-redux"
 import StepButton from "./StepButton"
 import ResetButton from "./ResetButton"
-import { setBinary, setAssembly } from "../actions"
+import { initializeEmulator, setAssembly } from "../actions"
 
-const Controller = ({ dispatch, assembly, isRunning, emulator }) => {
+const Controller = ({ dispatch, assembly, isRunning, emulator, isAssembled, isFinished }) => {
   let assemblyEditor
   let assembleOnClick = (e) => {
     dispatch(setAssembly(assemblyEditor.value))
@@ -19,16 +19,17 @@ const Controller = ({ dispatch, assembly, isRunning, emulator }) => {
     }).then(data => {
       console.log(data.encoded)
       let binary = atob(data.encoded)
-      dispatch(setBinary(binary, emulator))
+      dispatch(initializeEmulator(binary))
     })
   }
 
   return (
     <div id="controller" className="column">
+      { isFinished ? <span>Finish!</span> : null }
       <div id="buttons">
         <button className="button is-primary" onClick={assembleOnClick} disabled={isRunning}>Assemble</button>
         <StepButton />
-        <button className="button is-success">Run</button>
+        <button className="button is-success" disabled={!isAssembled}>Run</button>
         <ResetButton />
       </div>
       <div id="editor">
@@ -57,8 +58,10 @@ const Controller = ({ dispatch, assembly, isRunning, emulator }) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     assembly: state.assembly,
+    emulator: state.emulator,
+    isAssembled: state.isAssembled,
+    isFinished: state.isFinished,
     isRunning: state.isRunning,
-    emulator: state.emulator
   }
 }
 

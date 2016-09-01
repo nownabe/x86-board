@@ -11,6 +11,10 @@ td {
   font-family: monaco;
 }
 
+#editor > textarea {
+  font-family: monaco;
+}
+
 #memoryTable th {
   font-family: monaco;
 }

@@ -1,11 +1,12 @@
+import Emulator from "./Emulator"
 import instructions from "./instructions"
 
-export const setBinary = (binary, emulator) => {
-  let nextEmulator = emulator.dup()
-  nextEmulator.loadProgram(binary)
+export const initializeEmulator = (binary) => {
+  let emulator = new Emulator()
+  emulator.loadProgram(binary)
   return {
-    type: "SET_BINARY",
-    emulator: nextEmulator
+    type: "INITIALIZE_EMULATOR",
+    emulator: emulator
   }
 }
 
@@ -23,17 +24,17 @@ export const reset = () => {
 }
 
 export const step = (emulator) => {
-  let pc = emulator.programCounter
-  if (pc === 0) {
+  let emulator = emulator.dup()
+  instructions[emulator.getUint8()](emulator)
+  if (emulator.programCounter == 0) {
     return {
-      type: "RESET"
+      type: "FINISH",
+      emulator: emulator
     }
   } else {
-    let nextEmulator = emulator.dup()
-    instructions[emulator.memory[pc]](nextEmulator)
     return {
       type: "STEP",
-      emulator: nextEmulator
+      emulator: emulator
     }
   }
 }

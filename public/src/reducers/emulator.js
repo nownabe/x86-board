@@ -2,10 +2,9 @@ import Emulator from "../Emulator"
 
 const emulator = (state = new Emulator(), action) => {
   switch (action.type) {
-  case "SET_BINARY":
-    return action.emulator
-
+  case "INITIALIZE_EMULATOR":
   case "STEP":
+  case "FINISH":
     return action.emulator
 
   case "RESET":
