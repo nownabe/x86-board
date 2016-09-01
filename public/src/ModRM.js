@@ -18,7 +18,7 @@ export default class ModRM {
     }
 
     if (this.mod !== 0b11 && this.rm !== 0b100) {
-      this.address = calcAddress()
+      this.address = this.calcAddress()
     }
   }
 
@@ -64,19 +64,27 @@ export default class ModRM {
     }
   }
 
+  getRM32() {
+    if (this.mod === 0b11) {
+      return this.emulator.getRegister32(this.rm)
+    } else {
+      return this.emulator.getMemory32(this.address)
+    }
+  }
+
   setRM8(data) {
     if (this.mod === 0b11) {
-      setRegister8(this.rm, data)
+      this.emulator.setRegister8(this.rm, data)
     } else {
-      setMemory8(address, data)
+      this.emulator.setMemory8(this.address, data)
     }
   }
 
   setRM32(data) {
     if (this.mod === 0b11) {
-      setRegister32(this.rm, data)
+      this.emulator.setRegister32(this.rm, data)
     } else {
-      setMemory32(address, data)
+      this.emulator.setMemory32(this.address, data)
     }
   }
 }

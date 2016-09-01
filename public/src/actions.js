@@ -24,7 +24,7 @@ export const reset = () => {
 }
 
 export const step = (emulator) => {
-  let emulator = emulator.dup()
+  emulator = emulator.dup()
   instructions[emulator.getUint8()](emulator)
   if (emulator.programCounter == 0) {
     return {

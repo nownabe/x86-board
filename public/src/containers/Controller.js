@@ -25,7 +25,7 @@ const Controller = ({ dispatch, assembly, isRunning, emulator, isAssembled, isFi
 
   return (
     <div id="controller" className="column">
-      { isFinished ? <span>Finish!</span> : null }
+      { isFinished ? <span>Finished!</span> : null }
       <div id="buttons">
         <button className="button is-primary" onClick={assembleOnClick} disabled={isRunning}>Assemble</button>
         <StepButton />
