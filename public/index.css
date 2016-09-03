@@ -13,6 +13,7 @@ td {
 
 #editor > textarea {
   font-family: monaco;
+  height: 20rem;
 }
 
 #memoryTable th {

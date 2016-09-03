@@ -15,6 +15,71 @@ instructions[0x01] = (emulator) => {
   modrm.setRM32(modrm.getRM32() + modrm.getR32())
 }
 
+// <0x3B> CMP r32, r/m32
+instructions[0x3B]
+
+// <0x3C> CMP AL, imm8
+instructions[0x3C]
+
+// <0x3D> CMP EAX, imm32
+instructions[0x3D]
+
+// <0x40+r> INC r32
+for (let r = 0; r < REGISTERS.length; r++) {
+  instructions[0x40 + r] = (emulator) => {
+  }
+}
+
+// <0x50+r> PUSH r32
+for (let r = 0; r < REGISTERS.length; r++) {
+  instructions[0x50 + r] = (emulator) => {
+    emulator.push32(emulator.getRegister32(r))
+  }
+}
+
+// <0x58+r> POP r32
+for (let r = 0; r < REGISTERS; r++) {
+  instructions[0x58 + r] = (emulator) => {
+    emulator.setRegister32(emulator.pop32())
+  }
+}
+
+// <0x68> PUSH imm32
+instructions[0x68]
+
+// <0x6A> PUSH imm8
+instructions[0x6A]
+
+// <0x70> JO rel8
+instructions[0x70]
+
+// <0x71> JNO rel8
+instructions[0x71]
+
+// <0x72> JC rel8
+instructions[0x72]
+
+// <0x73> JNC rel8
+instructions[0x73]
+
+// <0x74> JZ rel8
+instructions[0x74]
+
+// <0x75> JNZ rel8
+instructions[0x75]
+
+// <0x78> JS rel8
+instructions[0x78]
+
+// <0x79> JNS rel8
+instructions[0x79]
+
+// <0x7C> JL rel8
+instructions[0x7C]
+
+// <0x7E> JNL rel8
+instructions[0x7E]
+
 // <0x83>
 instructions[0x83] = (emulator) => {
   let modrm = emulator.getModRM()
@@ -24,11 +89,17 @@ instructions[0x83] = (emulator) => {
   }
 }
 
+// <0x88> MOV r/m8, r8
+instructions[0x88]
+
 // <0x89> MOV r/m32, r32
 instructions[0x89] = (emulator) => {
   let modrm = emulator.getModRM()
   modrm.setRM32(modrm.getR32())
 }
+
+// <0x8A> MOV r/m8, r8
+instructions[0x8A]
 
 // <0x8B> MOV r32, r/m32
 instructions[0x8B] = (emulator) => {
@@ -36,17 +107,38 @@ instructions[0x8B] = (emulator) => {
   modrm.setR32(modrm.getRM32())
 }
 
-// <0xB8+r> MOV r32, imm32
-for (let i = 0; i < REGISTERS.length; i++) {
-  instructions[0xB8 + i] = (emulator) => {
-    emulator.setRegister32(i, emulator.getUint32())
+// <0xB0+r> MOV r8, imm8
+for (let r = 0; r < REGISTERS.length; r++) {
+  instructions[0xB0 + r] = (emulator) => {
   }
+}
+
+// <0xB8+r> MOV r32, imm32
+for (let r = 0; r < REGISTERS.length; r++) {
+  instructions[0xB8 + r] = (emulator) => {
+    emulator.setRegister32(r, emulator.getUint32())
+  }
+}
+
+// <0xC3> RETN
+instructions[0xC3] = (emulator) => {
+  emulator.programCounter = emulator.pop32()
 }
 
 // <0xC7> MOV r/m32, imm32
 instructions[0xC7] = (emulator) => {
   let modrm = emulator.getModRM()
   modrm.setRM32(emulator.getUint32())
+}
+
+// <0xC9>
+instructions[0xC9]
+
+// <0xE8> CALL rel32
+instructions[0xE8] = (emulator) => {
+  let rel = emulator.getInt32()
+  emulator.push32(emulator.programCounter)
+  emulator.programCounter += rel
 }
 
 // <0xE9> JMP rel32
@@ -59,6 +151,12 @@ instructions[0xE9] = (emulator) => {
 instructions[0xEB] = (emulator) => {
   emulator.programCounter += emulator.getInt8()
 }
+
+// <0xEC>
+instructions[0xEC]
+
+// <0xEE>
+instructions[0xEE]
 
 // <0xFF>
 instructions[0xFF] = (emulator) => {

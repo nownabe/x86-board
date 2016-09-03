@@ -1,12 +1,12 @@
 import ModRM from "./ModRM"
-import { ADDRESS_OFFSET, REGISTERS, MEMORY_SIZE } from "./constants"
+import { ADDRESS_OFFSET, REGISTERS, MEMORY_SIZE, ESP } from "./constants"
 import { sprintf } from "sprintf-js"
 
 export default class Emulator {
   constructor() {
     this.programCounter = ADDRESS_OFFSET
     this.registers = new Uint32Array(REGISTERS.length)
-    this.registers[REGISTERS.indexOf("esp")] = ADDRESS_OFFSET
+    this.registers[ESP] = ADDRESS_OFFSET
     this.eflags = 0
     this.memory = new Uint8Array(MEMORY_SIZE)
     this.dataView = new DataView(this.memory.buffer)
@@ -68,6 +68,33 @@ export default class Emulator {
 
   setMemory32(address, data) {
     this.dataView.setUint32(address, data, true)
+  }
+
+  // Stack
+  push8(data) {
+    let address = this.getRegister32(ESP) - 1
+    this.setRegister32(ESP, address)
+    this.setMemory8(address, data)
+  }
+
+  pop8() {
+    let address = this.getRegister32(ESP)
+    let data = this.getMemory8(address)
+    this.setRegister32(ESP, address + 1)
+    return data
+  }
+
+  push32(data) {
+    let address = this.getRegister32(ESP) - 4
+    this.setRegister32(ESP, address)
+    this.setMemory32(address, data)
+  }
+
+  pop32() {
+    let address = this.getRegister32(ESP)
+    let data = this.getMemory32(address)
+    this.setRegister32(ESP, address + 4)
+    return data
   }
 
   // Memory pointed by program counter
