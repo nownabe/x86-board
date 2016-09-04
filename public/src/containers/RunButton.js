@@ -8,7 +8,7 @@ const RunButton = ({ dispatch, emulator, isAssembled, isRunning }) => {
   }
 
   return (
-    <button className="button is-success" onClick={onClick} disabled={!isAssembled || isRunning}>
+    <button className="button is-success" onClick={onClick} disabled={!isAssembled}>
       Run
     </button>
   )
