@@ -4,7 +4,6 @@ import { run } from "../actions"
 
 const RunButton = ({ dispatch, emulator, isAssembled, isRunning }) => {
   let onClick = () => {
-    console.log("Run")
     dispatch(run(emulator))
   }
 

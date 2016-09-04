@@ -4,7 +4,6 @@ import { reset } from "../actions"
 
 const ResetButton = ({ dispatch }) => {
   let onClick = () => {
-    console.log("Reset")
     dispatch(reset())
   }
 
