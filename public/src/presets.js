@@ -14,13 +14,19 @@ presets["tutorial"] = ";\n\
 ; Please let me know operations you need.\n\
 ; https://github.com/nownabe/x86-emulator-js/issues\n\
 ;\n\
+; Code from https://www.amazon.co.jp/dp/B0148FQNVC\n\
+;\n\
 \n\
 BITS 32\n\
   org 0x0100\n\
   mov eax, 41\n\
   jmp 0"
 
-presets["ex1"] = "BITS 32\n" +
+presets["ex1"] = ";\n\
+; Code from https://www.amazon.co.jp/dp/B0148FQNVC\n\
+; \n\
+\n\
+BITS 32\n" +
   "  org 0x0100\n" +
   "  sub esp, 16\n" +
   "  mov ebp, esp\n" +
@@ -32,7 +38,11 @@ presets["ex1"] = "BITS 32\n" +
   "  mov edi, [ebp+4]\n" +
   "  jmp 0"
 
-presets["subroutine"] = "BITS 32\n" +
+presets["subroutine"] = ";\n\
+; Code from https://www.amazon.co.jp/dp/B0148FQNVC\n\
+;\n\
+\n\
+BITS 32\n" +
   "  org 0x0100\n" +
   "start:\n" +
   "  mov eax, 0x00f1\n" +
@@ -52,6 +62,8 @@ presets["io"] = ";\n\
 ; 'q': quit\n\
 ;\n\
 ; Input/Output is mapped to port 0x03f8.\n\
+;\n\
+; Code from https://www.amazon.co.jp/dp/B0148FQNVC\n\
 ;\n\
 \n\
 BITS 32\n\
