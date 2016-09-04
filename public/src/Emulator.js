@@ -1,5 +1,5 @@
 import ModRM from "./ModRM"
-import { ADDRESS_OFFSET, REGISTERS, MEMORY_SIZE, ESP } from "./constants"
+import { ADDRESS_OFFSET, REGISTERS, MEMORY_SIZE, ESP, CF, ZF, SF, OF } from "./constants"
 import { sprintf } from "sprintf-js"
 
 export default class Emulator {
@@ -97,6 +97,63 @@ export default class Emulator {
     return data
   }
 
+  // Flags
+  updateFlags(val1, val2, result) {
+    let sign1 = v1 >>> 31
+    let sign2 = v2 >>> 31
+    let signr = (result >>> 31) & 0b1
+    setCF(sprintf("%033b", result)[0] === "1")
+    setZF(result === 0)
+    setSF(signr)
+    setOF(sign1 != sign2 && sign1 != signr)
+  }
+
+  getFlag(bit) {
+    let flag = 0b1 << bit
+    return (this.eflags & flag) != 0
+  }
+
+  setFlag(bit, isFlagged) {
+    let flag = 0b1 << bit
+    if (isFlagged) {
+      this.eflags |= flag
+    } else {
+      this.eflags &= ~flag
+    }
+  }
+
+  getCF() {
+    return getFlag(CF)
+  }
+
+  setCF(isFlagged) {
+    setFlag(CF, isFlagged)
+  }
+
+  getZF() {
+    return getFlag(ZF)
+  }
+
+  setZF(isFlagged) {
+    setFlag(ZF, isFlagged)
+  }
+
+  getSF() {
+    return getFlag(SF)
+  }
+
+  setSF(isFlagged) {
+    setFlag(SF, isFlagged)
+  }
+
+  getOF() {
+    return getFlag(OF)
+  }
+
+  setOF(isFlagged) {
+    setFlag(OF, isFlagged)
+  }
+
   // Memory pointed by program counter
   getInt8() {
     this.programCounter += 1
@@ -113,7 +170,7 @@ export default class Emulator {
     return this.dataView.getInt32(this.programCounter - 4, true)
   }
 
-  getUint32(offset = 0) {
+  getUint32() {
     this.programCounter += 4
     return this.dataView.getUint32(this.programCounter - 4, true)
   }

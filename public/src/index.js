@@ -12,3 +12,7 @@ render(
   </Provider>,
   document.getElementById("app")
 )
+
+import { sprintf } from "sprintf-js"
+
+window.sprintf = sprintf

@@ -10,3 +10,9 @@ export const ESP = REGISTERS.indexOf("esp")
 export const EBP = REGISTERS.indexOf("ebp")
 export const ESI = REGISTERS.indexOf("esi")
 export const EDI = REGISTERS.indexOf("edi")
+
+// Flags
+export const CF = 0
+export const ZF = 6
+export const SF = 7
+export const OF = 11
