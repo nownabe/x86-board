@@ -46,3 +46,31 @@ export const step = (emulator) => {
     }
   }
 }
+
+export const run = (emulator) => {
+  let step = (emulator) => {
+    return {
+      type: "STEP",
+      emulator: emulator
+    }
+  }
+  let finish = (emulator) => {
+    return {
+      type: "FINISH",
+      emulator: emulator
+    }
+  }
+
+  return (dispatch, getState) => {
+    while (true) {
+      emulator = emulator.dup()
+      instructions[emulator.getUint8()](emulator)
+      if (emulator.programCounter == 0) {
+        dispatch(finish(emulator))
+        break
+      } else {
+        dispatch(step(emulator))
+      }
+    }
+  }
+}

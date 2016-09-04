@@ -4,7 +4,7 @@ import { step } from "../actions"
 
 const StepButton = ({ dispatch, emulator, isAssembled }) => {
   let onClick = () => {
-    console.log("Step run")
+    console.log("Step")
     dispatch(step(emulator))
   }
 

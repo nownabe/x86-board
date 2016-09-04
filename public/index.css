@@ -19,7 +19,7 @@ h2 {
 
 #editor > textarea {
   font-family: monaco;
-  height: 30rem;
+  height: 35rem;
 }
 
 #memoryTable th {
@@ -43,4 +43,23 @@ h2 {
 #memoryTable .pointed {
   color: #f00;
   font-weight: bold;
+}
+
+#input > textarea {
+  font-family: monaco;
+  font-weight: bold;
+  color: #fff;
+  background-color: #000
+}
+
+#output > pre {
+  padding: 8px;
+  font-family: monaco;
+  color: #fff;
+  background-color: #000;
+  min-height: 5rem;
+}
+
+#codeSelector {
+  margin-left: 8px;
 }
