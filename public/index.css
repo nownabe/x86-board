@@ -11,9 +11,15 @@ td {
   font-family: monaco;
 }
 
+h2 {
+  font-family: "Lato", Arial, "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+  font-size: 1.2rem;
+  margin: 8px 0;
+}
+
 #editor > textarea {
   font-family: monaco;
-  height: 20rem;
+  height: 43rem;
 }
 
 #memoryTable th {

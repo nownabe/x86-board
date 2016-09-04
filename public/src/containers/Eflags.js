@@ -12,7 +12,7 @@ const Eflags = ({ emulator }) => {
   let eflags = sprintf("%016b", emulator.eflags)
 
   let bits = []
-  for(let i = eflags.ength - 1; i >= 0; i--) {
+  for(let i = eflags.length - 1; i >= 0; i--) {
     bits.push(<td key={i}>{eflags[i]}</td>)
   }
 

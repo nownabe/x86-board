@@ -32,7 +32,7 @@ const Controller = ({ dispatch, assembly, isRunning, input, emulator, isAssemble
       <div id="buttons">
         <button className="button is-primary" onClick={assembleOnClick} disabled={isRunning}>Assemble</button>
         <StepButton />
-        <button className="button is-success" disabled={!isAssembled && false}>Run</button>
+        <button className="button is-success" disabled={!isAssembled && true}>Run</button>
         <ResetButton />
       </div>
       <div id="editor">
