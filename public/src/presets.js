@@ -1,7 +1,7 @@
 const presets = {}
 
-presets["ex1"] = ";\n\
-; This emulator emulates i386 assembly.\n\
+presets["tutorial"] = ";\n\
+; This is i386 assmbly emulator.\n\
 ;\n\
 ; This emulator has 1KB memory.\n\
 ; Program will be loaded into 0x100.\n\
@@ -11,7 +11,8 @@ presets["ex1"] = ";\n\
 ; Use 'jmp 0'\n\
 ;\n\
 ; All operations have not been implemented yet.\n\
-; Please give me pull requests!\n\
+; Please let me know operations you need.\n\
+; https://github.com/nownabe/x86-emulator-js/issues\n\
 ;\n\
 \n\
 BITS 32\n\
@@ -19,7 +20,7 @@ BITS 32\n\
   mov eax, 41\n\
   jmp 0"
 
-presets["ex2"] = "BITS 32\n" +
+presets["ex1"] = "BITS 32\n" +
   "  org 0x0100\n" +
   "  sub esp, 16\n" +
   "  mov ebp, esp\n" +

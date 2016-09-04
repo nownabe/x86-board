@@ -20,8 +20,8 @@ const PresetSelector = ({dispatch, assembly}) => {
     <span className="select" id="codeSelector">
       <select className="select" onChange={onChange}>
         <option value="title">Preset Codes</option>
+        <option value="tutorial">Tutorial</option>
         <option value="ex1">Example 1</option>
-        <option value="ex2">Example 2</option>
         <option value="subroutine">Subroutine</option>
         <option value="io">I/O</option>
       </select>
