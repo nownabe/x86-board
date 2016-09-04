@@ -46,7 +46,9 @@ export default class ModRM {
     return this.emulator.getRegister8(this.reg)
   }
 
-  setR8(data) {}
+  setR8(data) {
+    this.emulator.setRegister8(this.reg, data)
+  }
 
   getR32() {
     return this.emulator.getRegister32(this.reg)

@@ -1,9 +1,10 @@
 import Emulator from "./Emulator"
 import instructions from "./instructions"
 
-export const initializeEmulator = (binary) => {
+export const initializeEmulator = (binary, input) => {
   let emulator = new Emulator()
   emulator.loadProgram(binary)
+  emulator.io.input = input
   return {
     type: "INITIALIZE_EMULATOR",
     emulator: emulator
@@ -14,6 +15,13 @@ export const setAssembly = (assembly) => {
   return {
     type: "SET_ASSEMBLY",
     assembly
+  }
+}
+
+export const setInput = (input) => {
+  return {
+    type: "SET_INPUT",
+    input
   }
 }
 

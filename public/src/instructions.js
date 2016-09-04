@@ -1,4 +1,4 @@
-import { REGISTERS, ESP, EBP, CF, ZF, SF, OF } from "./constants"
+import { REGISTERS, EDX, ESP, EBP, AL, FLAGS, CF, ZF, SF, OF } from "./constants"
 
 // http://ref.x86asm.net/coder.html
 const instructions = {}
@@ -24,7 +24,12 @@ instructions[0x3B] = (emulator) => {
 }
 
 // <0x3C> CMP AL, imm8
-instructions[0x3C]
+instructions[0x3C] = (emulator) => {
+  console.log("CMP AL, imm8")
+  let al   = emulator.getRegister8(AL)
+  let imm8 = emulator.getUint8()
+  emulator.updateFlags(al, imm8, al - imm8)
+}
 
 // <0x3D> CMP EAX, imm32
 instructions[0x3D]
@@ -32,6 +37,8 @@ instructions[0x3D]
 // <0x40+r> INC r32
 for (let r = 0; r < REGISTERS.length; r++) {
   instructions[0x40 + r] = (emulator) => {
+    console.log("INC r32")
+    emulator.setRegister32(r, emulator.getRegister32(r) + 1)
   }
 }
 
@@ -61,12 +68,14 @@ instructions[0x6A] = (emulator) => {
 
 let defineJump = (code, flag) => {
   instructions[code] = (emulator) => {
+    console.log(`J${FLAGS[flag][0]} rel8`)
     let rel8 = emulator.getInt8()
     if (emulator.getFlag(flag)) {
       emulator.programCounter += rel8
     }
   }
   instructions[code + 1] = (emulator) => {
+    console.log(`JN${FLAGS[flag][0]} rel8`)
     let rel8 = emulator.getInt8()
     if (!emulator.getFlag(flag)) {
       emulator.programCounter += rel8
@@ -92,6 +101,7 @@ defineJump(0x78, SF)
 
 // <0x7C> JL rel8
 instructions[0x7C] = (emulator) => {
+  console.log("JL rel8")
   let rel8 = emulator.getInt8()
   if (emulator.getSF() != emulator.getOF()) {
     emulator.programCounter += rel8
@@ -155,8 +165,12 @@ instructions[0x89] = (emulator) => {
   modrm.setRM32(modrm.getR32())
 }
 
-// <0x8A> MOV r/m8, r8
-instructions[0x8A]
+// <0x8A> MOV r8, r/m8
+instructions[0x8A] = (emulator) => {
+  console.log("MOV r8, r/m8")
+  let modrm = emulator.getModRM()
+  modrm.setR8(modrm.getRM8())
+}
 
 // <0x8B> MOV r32, r/m32
 instructions[0x8B] = (emulator) => {
@@ -173,6 +187,7 @@ for (let r = 0; r < REGISTERS.length; r++) {
 // <0xB8+r> MOV r32, imm32
 for (let r = 0; r < REGISTERS.length; r++) {
   instructions[0xB8 + r] = (emulator) => {
+    console.log("MOV r32, imm32")
     emulator.setRegister32(r, emulator.getUint32())
   }
 }
@@ -196,6 +211,7 @@ instructions[0xC9] = (emulator) => {
 
 // <0xE8> CALL rel32
 instructions[0xE8] = (emulator) => {
+  console.log("CALL rel32")
   let rel = emulator.getInt32()
   emulator.push32(emulator.programCounter)
   emulator.programCounter += rel
@@ -209,20 +225,33 @@ instructions[0xE9] = (emulator) => {
 
 // <0xEB> JMP rel8
 instructions[0xEB] = (emulator) => {
-  emulator.programCounter += emulator.getInt8()
+  console.log("JMP rel8")
+  let rel = emulator.getInt8()
+  emulator.programCounter += rel
 }
 
-// <0xEC>
-instructions[0xEC]
+// <0xEC> IN AL, DX
+instructions[0xEC] = (emulator) => {
+  console.log("IN AL, DX")
+  let address = emulator.getRegister32(EDX) & 0xffff
+  let char = emulator.io.in8(address)
+  emulator.setRegister8(AL, char)
+}
 
-// <0xEE>
-instructions[0xEE]
+// <0xEE> OUT DX, AL
+instructions[0xEE] = (emulator) => {
+  console.log("OUT DX, AL")
+  let address = emulator.getRegister32(EDX) & 0xffff
+  let char = emulator.getRegister8(AL)
+  emulator.io.out8(address, char)
+}
 
 // <0xFF>
 instructions[0xFF] = (emulator) => {
   let modrm = emulator.getModRM()
   switch (modrm.reg) {
     case 0: // INC r/m32
+      console.log("INC r/m32")
       modrm.setRM32(modrm.getRM32() + 1)
       break;
   }

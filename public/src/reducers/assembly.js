@@ -23,6 +23,46 @@ initialState = "BITS 32\n" +
   "  add ecx, ebx\n" +
   "  ret"
 
+initialState = "BITS 32\n\
+  org 0x0100\n\
+start:\n\
+  mov edx, 0x03f8\n\
+mainloop:\n\
+  in al, dx\n\
+  cmp al, 'h'\n\
+  je puthello\n\
+  cmp al, 'w'\n\
+  je putworld\n\
+  cmp al, 'q'\n\
+  je fin\n\
+  jmp mainloop\n\
+puthello:\n\
+  mov esi, msghello\n\
+  call puts\n\
+  jmp mainloop\n\
+putworld:\n\
+  mov esi, msgworld\n\
+  call puts\n\
+  jmp mainloop\n\
+fin:\n\
+  jmp 0\n\
+\n\
+puts:\n\
+  mov al, [esi]\n\
+  inc esi\n\
+  cmp al, 0\n\
+  je putsend\n\
+  out dx, al\n\
+  jmp puts\n\
+putsend:\n\
+  ret\n\
+\n\
+msghello:\n\
+  db \"hello\", 0x0d, 0x0a, 0\n\
+\n\
+msgworld:\n\
+  db \"world\", 0x0d, 0x0a, 0"
+
 const assembly = (state = initialState, action) => {
   if (action.type == "SET_ASSEMBLY") {
     return action.assembly

@@ -1,4 +1,5 @@
 import React from "react"
+import Eflags from "../containers/eflags"
 import Memory from "../containers/Memory"
 import Registers from "../containers/Registers"
 
@@ -9,6 +10,7 @@ const Computer = () => (
         <h2>Registers</h2>
         <Registers />
       </div>
+      <Eflags />
       <div id="memory">
         <h2>Memory</h2>
         <Memory />

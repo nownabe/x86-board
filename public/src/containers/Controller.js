@@ -2,12 +2,15 @@ import React from "react"
 import { connect } from "react-redux"
 import StepButton from "./StepButton"
 import ResetButton from "./ResetButton"
-import { initializeEmulator, setAssembly } from "../actions"
+import { initializeEmulator, setAssembly, setInput } from "../actions"
 
-const Controller = ({ dispatch, assembly, isRunning, emulator, isAssembled, isFinished }) => {
+const Controller = ({ dispatch, assembly, isRunning, input, emulator, isAssembled, isFinished }) => {
   let assemblyEditor
+  let inputEditor
   let assembleOnClick = (e) => {
+    let input = inputEditor.value
     dispatch(setAssembly(assemblyEditor.value))
+    dispatch(setInput(input))
     console.log("POST /assemble")
     fetch("/assemble", {
       method: "POST",
@@ -19,7 +22,7 @@ const Controller = ({ dispatch, assembly, isRunning, emulator, isAssembled, isFi
     }).then(data => {
       console.log(data.encoded)
       let binary = atob(data.encoded)
-      dispatch(initializeEmulator(binary))
+      dispatch(initializeEmulator(binary, input))
     })
   }
 
@@ -29,7 +32,7 @@ const Controller = ({ dispatch, assembly, isRunning, emulator, isAssembled, isFi
       <div id="buttons">
         <button className="button is-primary" onClick={assembleOnClick} disabled={isRunning}>Assemble</button>
         <StepButton />
-        <button className="button is-success" disabled={!isAssembled}>Run</button>
+        <button className="button is-success" disabled={!isAssembled && false}>Run</button>
         <ResetButton />
       </div>
       <div id="editor">
@@ -44,11 +47,20 @@ const Controller = ({ dispatch, assembly, isRunning, emulator, isAssembled, isFi
       <div id="io">
         <div id="input">
           <h2>Input</h2>
-          <textarea className="textarea" disabled={isRunning}></textarea>
+          <textarea
+            className="textarea"
+            defaultValue={input}
+            ref={node => {inputEditor = node}}
+            disabled={isRunning}
+          />
         </div>
         <div id="output">
           <h2>Output</h2>
-          <textarea className="textarea" disabled={isRunning}></textarea>
+          <textarea
+            className="textarea"
+            value={emulator.io.output}
+            disabled={true}
+          />
         </div>
       </div>
     </div>
@@ -59,6 +71,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     assembly: state.assembly,
     emulator: state.emulator,
+    input: state.input,
     isAssembled: state.isAssembled,
     isFinished: state.isFinished,
     isRunning: state.isRunning,

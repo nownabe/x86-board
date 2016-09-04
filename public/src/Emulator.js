@@ -1,4 +1,5 @@
 import ModRM from "./ModRM"
+import IO from "./IO"
 import { ADDRESS_OFFSET, REGISTERS, MEMORY_SIZE, ESP, CF, ZF, SF, OF } from "./constants"
 import { sprintf } from "sprintf-js"
 
@@ -10,6 +11,7 @@ export default class Emulator {
     this.eflags = 0
     this.memory = new Uint8Array(MEMORY_SIZE)
     this.dataView = new DataView(this.memory.buffer)
+    this.io = new IO()
   }
 
   dup() {
@@ -19,6 +21,7 @@ export default class Emulator {
     emulator.eflags = this.eflags
     emulator.memory = new Uint8Array(this.memory)
     emulator.dataView = new DataView(emulator.memory.buffer)
+    emulator.io = this.io.dup()
     return emulator
   }
 
@@ -99,13 +102,13 @@ export default class Emulator {
 
   // Flags
   updateFlags(val1, val2, result) {
-    let sign1 = v1 >>> 31
-    let sign2 = v2 >>> 31
+    let sign1 = val1 >>> 31
+    let sign2 = val2 >>> 31
     let signr = (result >>> 31) & 0b1
-    setCF(sprintf("%033b", result)[0] === "1")
-    setZF(result === 0)
-    setSF(signr)
-    setOF(sign1 != sign2 && sign1 != signr)
+    this.setCF(sprintf("%033b", result)[0] === "1")
+    this.setZF(result === 0)
+    this.setSF(signr)
+    this.setOF(sign1 != sign2 && sign1 != signr)
   }
 
   getFlag(bit) {
@@ -123,35 +126,35 @@ export default class Emulator {
   }
 
   getCF() {
-    return getFlag(CF)
+    return this.getFlag(CF)
   }
 
   setCF(isFlagged) {
-    setFlag(CF, isFlagged)
+    this.setFlag(CF, isFlagged)
   }
 
   getZF() {
-    return getFlag(ZF)
+    return this.getFlag(ZF)
   }
 
   setZF(isFlagged) {
-    setFlag(ZF, isFlagged)
+    this.setFlag(ZF, isFlagged)
   }
 
   getSF() {
-    return getFlag(SF)
+    return this.getFlag(SF)
   }
 
   setSF(isFlagged) {
-    setFlag(SF, isFlagged)
+    this.setFlag(SF, isFlagged)
   }
 
   getOF() {
-    return getFlag(OF)
+    return this.getFlag(OF)
   }
 
   setOF(isFlagged) {
-    setFlag(OF, isFlagged)
+    this.setFlag(OF, isFlagged)
   }
 
   // Memory pointed by program counter
