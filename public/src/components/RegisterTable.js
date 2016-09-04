@@ -4,13 +4,13 @@ import { REGISTERS } from "../constants"
 
 const RegisterTable = ({ registers }) => {
   let regs = []
-  for(let i = 0; i < REGISTERS.length; i += 2) {
+  for(let i = 0; i < REGISTERS.length / 2; i++) {
     regs.push(
       <tr key={i}>
         <td>{REGISTERS[i]}</td>
         <td>{sprintf("0x%08X", registers[i])}</td>
-        <td>{REGISTERS[i + 1]}</td>
-        <td>{sprintf("0x%08X", registers[i + 1])}</td>
+        <td>{REGISTERS[i + REGISTERS.length / 2]}</td>
+        <td>{sprintf("0x%08X", registers[i + REGISTERS.length / 2])}</td>
       </tr>
     )
   }
