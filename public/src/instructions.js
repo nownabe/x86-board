@@ -186,6 +186,7 @@ instructions[0x83] = (emulator) => {
       res = rm32 - imm8
       break
     default:
+      console.error("NOT IMPLEMENTED!")
       return
   }
   emulator.updateFlags(rm32, imm8, res)
@@ -300,7 +301,10 @@ instructions[0xFF] = (emulator) => {
     case 0: // INC r/m32
       console.log("INC r/m32")
       modrm.setRM32(modrm.getRM32() + 1)
-      break;
+      break
+    default:
+      console.error("NOT IMPLEMENTED!")
+      return
   }
 }
 

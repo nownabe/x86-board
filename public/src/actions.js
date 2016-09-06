@@ -1,5 +1,4 @@
 import Emulator from "./Emulator"
-import instructions from "./instructions"
 
 export const initializeEmulator = (binary, input) => {
   let emulator = new Emulator()
@@ -33,7 +32,8 @@ export const reset = () => {
 
 export const step = (emulator) => {
   emulator = emulator.dup()
-  instructions[emulator.getUint8()](emulator)
+  emulator.execute()
+
   if (emulator.programCounter == 0) {
     return {
       type: "FINISH",
@@ -64,7 +64,7 @@ export const run = (emulator) => {
   return (dispatch, getState) => {
     while (true) {
       emulator = emulator.dup()
-      instructions[emulator.getUint8()](emulator)
+      emulator.execute()
       if (emulator.programCounter == 0) {
         dispatch(finish(emulator))
         break

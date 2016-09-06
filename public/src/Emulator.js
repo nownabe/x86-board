@@ -1,7 +1,8 @@
+import { sprintf } from "sprintf-js"
 import ModRM from "./ModRM"
 import IO from "./IO"
+import instructions from "./instructions"
 import { ADDRESS_OFFSET, REGISTERS, MEMORY_SIZE, ESP, CF, ZF, SF, OF } from "./constants"
-import { sprintf } from "sprintf-js"
 
 export default class Emulator {
   constructor() {
@@ -28,6 +29,15 @@ export default class Emulator {
   loadProgram(binary) {
     for (let i = 0; i < binary.length; i++) {
       this.memory[ADDRESS_OFFSET + i] = binary.charCodeAt(i)
+    }
+  }
+
+  execute() {
+    let instruction = instructions[this.getUint8()]
+    if (instruction) {
+      instruction(this)
+    } else {
+      console.error("NOT IMPLEMENTED!")
     }
   }
 
