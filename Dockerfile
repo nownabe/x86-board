@@ -25,5 +25,6 @@ RUN bundle install
 COPY . /usr/src/app
 
 EXPOSE 80
+ENV PORT 80
 
-CMD ["bundle", "exec", "puma", "-e", "production", "-p", "80"]
+CMD bundle exec puma -e production -p $PORT
