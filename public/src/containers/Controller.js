@@ -27,6 +27,9 @@ const Controller = ({ dispatch, assembly, isRunning, input, emulator, isAssemble
       dispatch(initializeEmulator(binary, input))
     })
   }
+  let onChangeEditor = (e) => {
+    dispatch(setAssembly(assemblyEditor.value))
+  }
 
   return (
     <div id="controller" className="column">
@@ -45,6 +48,7 @@ const Controller = ({ dispatch, assembly, isRunning, input, emulator, isAssemble
           value={assembly}
           ref={node => {assemblyEditor = node}}
           disabled={isRunning}
+          onChange={onChangeEditor}
         />
       </div>
       <div id="io">
