@@ -36,3 +36,12 @@ test("ADD al, [0xF0]", () => {
   instructions[0x02](emulator)
   expect(emulator.getRegister8(AL)).toBe(5)
 })
+
+// <0x03> ADD r32, r/m32
+test("ADD eax, dword [0xF0]", () => {
+  let emulator = newEmulator([0x05, 0xF0, 0x00, 0x00, 0x00])
+  emulator.dataView.setUint32(0xF0, 2, true)
+  emulator.setRegister32(EAX, 3)
+  instructions[0x03](emulator)
+  expect(emulator.getRegister32(EAX)).toBe(5)
+})

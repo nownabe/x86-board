@@ -25,6 +25,12 @@ instructions[0x02] = (emulator) => {
 }
 
 // <0x03> ADD r32, r/m32
+instructions[0x03] = (emulator) => {
+  console.log("ADD r32, r/m32")
+  let modrm = emulator.getModRM()
+  modrm.setR32(modrm.getR32() + modrm.getRM32())
+}
+
 // <0x04> ADD AL, imm8
 // <0x05> ADD EAX, imm32
 // <0x08> OR r/m8, r8
