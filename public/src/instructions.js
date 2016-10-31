@@ -226,6 +226,13 @@ instructions[0x8B] = (emulator) => {
   modrm.setR32(modrm.getRM32())
 }
 
+// <0x8D> LEA r32, m
+instructions[0x8D] = (emulator) => {
+  console.log("LEA r32, m")
+  let modrm = emulator.getModRM()
+  modrm.setR32(modrm.address)
+}
+
 // <0xB0+r> MOV r8, imm8
 for (let r = 0; r < REGISTERS.length; r++) {
   instructions[0xB0 + r] = (emulator) => {

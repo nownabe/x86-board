@@ -1,6 +1,6 @@
 import instructions from "../src/instructions"
 import Emulator from "../src/Emulator"
-import { EAX, AL, CL } from "../src/constants"
+import { EAX, ECX, AL, CL } from "../src/constants"
 
 function newEmulator(data) {
   let emulator = new Emulator()
@@ -44,4 +44,11 @@ test("ADD eax, dword [0xF0]", () => {
   emulator.setRegister32(EAX, 3)
   instructions[0x03](emulator)
   expect(emulator.getRegister32(EAX)).toBe(5)
+})
+
+// <0x8D> LEA r32, m
+test("LEA eax, [0xF0]", () => {
+  let emulator = newEmulator([0x05, 0xF0, 0x00, 0x00, 0x00])
+  instructions[0x8D](emulator)
+  expect(emulator.getRegister32(EAX)).toBe(0xF0)
 })
