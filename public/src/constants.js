@@ -1,9 +1,8 @@
 export const ADDRESS_OFFSET = 0x0100 >>> 0
 export const MEMORY_SIZE = 1024 * 1
 
-// Registers
+// 32bit Registers
 export const REGISTERS = ["eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"]
-export const SHORT_REGISTERS = ["al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"]
 export const EAX = REGISTERS.indexOf("eax")
 export const ECX = REGISTERS.indexOf("ecx")
 export const EDX = REGISTERS.indexOf("edx")
@@ -12,7 +11,11 @@ export const ESP = REGISTERS.indexOf("esp")
 export const EBP = REGISTERS.indexOf("ebp")
 export const ESI = REGISTERS.indexOf("esi")
 export const EDI = REGISTERS.indexOf("edi")
+
+// 16bit Registers
+export const SHORT_REGISTERS = ["al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"]
 export const AL = SHORT_REGISTERS.indexOf("al")
+export const CL = SHORT_REGISTERS.indexOf("cl")
 
 // Flags
 export const CF = 0
