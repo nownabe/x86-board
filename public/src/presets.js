@@ -12,7 +12,7 @@ presets["tutorial"] = ";\n\
 ;\n\
 ; All operations have not been implemented yet.\n\
 ; Please let me know operations you need.\n\
-; https://github.com/nownabe/x86-emulator-js/issues\n\
+; https://github.com/nownabe/x86-board/issues\n\
 ;\n\
 ; Code from https://www.amazon.co.jp/dp/B0148FQNVC\n\
 ;\n\
