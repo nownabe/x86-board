@@ -5,12 +5,20 @@ presets["tutorial"] = `;
 ;
 ; This emulator has 1KB memory.
 ; Program will be loaded into 0x100.
-; Use 'org 0x0100'
+; So add 'org 0x0100' into the first line.
 ;
 ; To finish your program, jump to 0x0.
-; Use 'jmp 0'
+; So add 'jmp 0' into the last of program.
 ;
-; All operations have not been implemented yet.
+; To compile and load programs, click 'Assemble' button
+; and then compiled programs will be loaded into memory at 0x100.
+;
+; To execute compiled programs, click 'Step' or 'Run' button.
+; With 'Step' button, you can execute programs and
+; check the state of memory and regiesters step by step.
+; With 'Run' button, you can execute programs at once.
+;
+; Sorry, all operations have not been implemented yet.
 ; Please let me know operations you need.
 ; https://github.com/nownabe/x86-board/issues
 ;
