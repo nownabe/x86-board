@@ -15,8 +15,8 @@ RUN apt-get update \
 FROM ruby:3.1.2-slim-bullseye as runtime
 LABEL maintainer="nownabe <nownabe@gmail.com>"
 
-EXPOSE 80
-ENV PORT 80
+EXPOSE 8080
+ENV PORT 8080
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends nasm \

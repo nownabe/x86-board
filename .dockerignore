@@ -1,6 +1,17 @@
+.bundle
+.git
+.github
 /public/examples
 /public/index.dev.html
 /public/jspm_packages
 /public/node_modules
 /public/package.json
 /public/src
+vendor
+.dockerignore
+.gitignore
+.tool-versions
+Dockerfile
+README.md
+fly.toml
+server-test.json
