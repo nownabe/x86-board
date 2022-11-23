@@ -1,30 +1,34 @@
-FROM ruby:2.3.1-alpine
-MAINTAINER nownabe
+FROM ruby:3.1.2-slim-bullseye as build
 
-RUN apk add --update --no-cache build-base
-
-# Install nasm
-ENV build_deps 'curl'
-RUN apk add --update --no-cache ${build_deps} \
-  && curl -SL -O http://www.nasm.us/pub/nasm/releasebuilds/2.12.02/nasm-2.12.02.tar.gz \
-  && tar zxf nasm-2.12.02.tar.gz \
-  && cd nasm-2.12.02 \
-  && ./configure \
-  && make \
-  && make install \
-  && apk del ${build_deps} \
-  && rm -rf nasm-2.12.02*
-
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY Gemfile /usr/src/app/
 COPY Gemfile.lock /usr/src/app/
-RUN bundle install
 
-COPY . /usr/src/app
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends build-essential \
+  && bundle config set frozen true \
+  && bundle config set with production \
+  && bundle install --no-cache
+
+
+FROM ruby:3.1.2-slim-bullseye as runtime
+LABEL maintainer="nownabe <nownabe@gmail.com>"
 
 EXPOSE 80
 ENV PORT 80
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends nasm \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
+  && groupadd -g 61000 app \
+  && useradd -g 61000 -l -M -s /bin/false -u 61000 app
+
+USER app
+WORKDIR /usr/src/app
+
+COPY --from=build --chown=app:app /usr/local/bundle /usr/local/bundle
+COPY . /usr/src/app
 
 CMD bundle exec puma -e production -p $PORT
